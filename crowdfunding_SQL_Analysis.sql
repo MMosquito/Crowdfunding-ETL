@@ -17,8 +17,10 @@ FROM backers
 -- Create a table, "email_contacts_remaining_goal_amount", that has the first and last name, and email address of each contact.
 -- And, the amount left to reach the goal for all "live" projects in descending order. 
 CREATE TABLE "email_contacts_remaining_goal_amount" AS
-	SELECT first_name, last_name, email, goal
-	FROM backers, campaign
+	SELECT backers.first_name, backers.last_name, backers.email, 
+	campaign.goal
+	FROM backers
+	INNER JOIN campaign on backers.cf_id=campaign.cf_id
 	ORDER BY goal DESC;
 
 
@@ -42,4 +44,3 @@ CREATE TABLE "email_backers_remaining_goal_amount" AS
 
 -- Check the table
 SELECT * FROM email_backers_remaining_goal_amount
-
